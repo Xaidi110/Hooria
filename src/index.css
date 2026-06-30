@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-mono: "Space Mono", monospace;
+  
+  --color-editorial-cream: #FFF9F2;
+  --color-editorial-charcoal: #1A1A1A;
+  --color-editorial-orange: #FF4D00;
+  
+  --animate-spin-slow: spin 12s linear infinite;
+  --animate-float: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Custom background grid overlay to enhance the high-contrast creative branding look */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(26, 26, 26, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(26, 26, 26, 0.03) 1px, transparent 1px);
+}
+
+.bg-grid-pattern-dark {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Style for rich text Markdown inside the AI Audit and Thought Leadership read modes */
+.markdown-body h3 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  color: #1A1A1A;
+  letter-spacing: -0.02em;
+}
+.markdown-body h4 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #1A1A1A;
+}
+.markdown-body p {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  color: #333333;
+}
+.markdown-body ul, .markdown-body ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+.markdown-body li {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333333;
+  line-height: 1.6;
+}
+.markdown-body strong {
+  font-weight: 700;
+  color: #1A1A1A;
+}
+.markdown-body hr {
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid rgba(26, 26, 26, 0.15);
+}
+
+/* Scrollbar styling for sleek navigation */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FFF9F2;
+  border-left: 1px solid rgba(26, 26, 26, 0.1);
+}
+::-webkit-scrollbar-thumb {
+  background: #1A1A1A;
+  border-radius: 0px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF4D00;
+}
+
