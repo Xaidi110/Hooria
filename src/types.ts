@@ -57,3 +57,34 @@ export interface AuditResult {
   }[];
   customBlueprint: string;
 }
+
+export interface SEOAuditResult {
+  targetUrl: string;
+  overallScore: number;
+  responseTimeMs: number;
+  pageSizeBytes: number;
+  hasSSL: boolean;
+  title: string;
+  titleLength: number;
+  metaDescription: string;
+  descriptionLength: number;
+  h1Count: number;
+  h1Text: string;
+  h2Count: number;
+  openGraphImage: string;
+  hasRobotsMeta: boolean;
+  scores: {
+    meta: number;
+    speed: number;
+    ssl: number;
+    headings: number;
+  };
+  recommendations: {
+    area: string;
+    recommendation: string;
+    status: 'high' | 'medium' | 'low';
+  }[];
+  unreachable: boolean;
+  errorMsg: string | null;
+}
+

@@ -88,7 +88,7 @@ export default function App() {
       {/* Interactive portfolio/case study list */}
       <CaseStudiesSection />
 
-      {/* Dedicated Centered Segment for the Gemini-Powered AI Growth Audit */}
+      {/* Dedicated Centered Segment for the Real-time Domain SEO & Visibility Analyzer */}
       <section id="audit-section-anchor" className="bg-white pt-24 pb-24 mt-0 px-4 md:px-8 border-b border-editorial-charcoal/10 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
@@ -101,13 +101,13 @@ export default function App() {
         <div className="relative mx-auto max-w-7xl z-10">
           <div className="mb-14 text-center max-w-2xl mx-auto">
             <span className="font-sans text-xs font-bold text-editorial-orange uppercase tracking-[3px] block mb-3">
-              // POSITIONING SIMULATOR
+              // SEARCH & VISIBILITY ANALYZER
             </span>
             <h2 className="font-display text-4xl sm:text-5xl font-black text-editorial-charcoal tracking-tight leading-tight mt-1">
-              Test Your Current Positioning.
+              Test Your Domain's Visibility.
             </h2>
             <p className="font-sans text-base text-editorial-charcoal/70 mt-3 leading-relaxed">
-              Input your digital bottleneck below. Hooria’s strategy twin will diagnose your landing page copy and deliver customized conversion action items.
+              Enter your website domain below. Hooria’s diagnostic analyzer will audit your technical SEO, SSL security, headers layout, and server response speeds instantly.
             </p>
           </div>
 
@@ -121,11 +121,11 @@ export default function App() {
       {/* Comprehensive contact details & meeting scheduler */}
       <ContactFooter />
 
-      {/* Floating Rotating sticker tag that scrolls to AI audit */}
+      {/* Floating Rotating sticker tag that scrolls to SEO audit */}
       <button
         onClick={handleScrollToAudit}
         className="fixed bottom-6 right-6 z-40 hidden md:flex h-14 w-14 items-center justify-center rounded-full border border-editorial-charcoal bg-white text-editorial-charcoal hover:bg-editorial-orange hover:text-white shadow-md transition-all duration-300 cursor-pointer group"
-        title="Launch Instant Growth Audit"
+        title="Launch Instant SEO Audit"
       >
         <Sparkles className="h-5 w-5 transition-transform group-hover:rotate-12" />
         <span className="absolute -inset-1 rounded-full border border-dashed border-editorial-orange/40 opacity-0 group-hover:opacity-100 animate-spin-slow pointer-events-none" />

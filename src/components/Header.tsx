@@ -66,7 +66,7 @@ export default function Header({ onOpenAudit }: HeaderProps) {
             className="inline-block px-5 py-2.5 bg-editorial-charcoal text-editorial-cream hover:bg-editorial-orange rounded-full font-sans font-semibold text-xs uppercase tracking-wider transition-all duration-300 shadow-sm cursor-pointer"
           >
             <span className="flex items-center gap-1">
-              Free Growth Audit
+              Free SEO Audit
               <ArrowUpRight className="h-3.5 w-3.5" />
             </span>
           </button>
@@ -115,7 +115,7 @@ export default function Header({ onOpenAudit }: HeaderProps) {
                 }}
                 className="w-full text-center rounded-full bg-editorial-charcoal hover:bg-editorial-orange py-3 text-white font-sans text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
               >
-                Run Free AI Growth Audit
+                Run Free SEO Audit
               </button>
             </div>
           </div>

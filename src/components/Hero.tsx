@@ -44,7 +44,7 @@ export default function Hero({ onOpenAudit, onScrollToSection }: HeroProps) {
                 onClick={onOpenAudit}
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-editorial-charcoal text-editorial-cream hover:bg-editorial-orange hover:scale-[1.02] active:scale-[0.98] rounded-full font-sans font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer"
               >
-                <span>Launch Free Growth Diagnostic</span>
+                <span>Launch Free SEO Diagnostic</span>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
               
