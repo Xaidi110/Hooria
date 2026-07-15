@@ -21,11 +21,15 @@ export default function ContactFooter() {
 
   const [booking, setBooking] = useState({
     day: 'Jul 6',
-    time: '2:00 PM CEST'
+    time: '2:00 PM CEST',
+    name: '',
+    email: ''
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
+  const [bookingLoading, setBookingLoading] = useState(false);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -34,15 +38,44 @@ export default function ContactFooter() {
     });
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setFormSubmitted(true);
+    setFormLoading(true);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (res.ok) {
+        setFormSubmitted(true);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setFormLoading(false);
+    }
   };
 
-  const handleBookSubmit = (e: React.FormEvent) => {
+  const handleBookSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBookingSubmitted(true);
+    if (!booking.name || !booking.email) return;
+    setBookingLoading(true);
+    try {
+      const res = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking)
+      });
+      if (res.ok) {
+        setBookingSubmitted(true);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setBookingLoading(false);
+    }
   };
 
   return (
@@ -130,11 +163,37 @@ export default function ContactFooter() {
                     </div>
                   </div>
 
+                  {/* Booking Contact Info */}
+                  <div>
+                    <span className="block font-sans text-[9px] font-bold tracking-wider text-white/40 uppercase mb-2">
+                      3. Your Contact Details:
+                    </span>
+                    <div className="space-y-2.5">
+                      <input
+                        type="text"
+                        required
+                        placeholder="Your Name"
+                        value={booking.name}
+                        onChange={(e) => setBooking({ ...booking, name: e.target.value })}
+                        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 font-sans text-xs font-medium text-white focus:outline-none focus:border-editorial-orange transition-colors"
+                      />
+                      <input
+                        type="email"
+                        required
+                        placeholder="Your Email Address"
+                        value={booking.email}
+                        onChange={(e) => setBooking({ ...booking, email: e.target.value })}
+                        className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2.5 font-sans text-xs font-medium text-white focus:outline-none focus:border-editorial-orange transition-colors"
+                      />
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full text-center rounded-full bg-editorial-orange py-3 font-sans text-xs font-bold uppercase tracking-wider text-white cursor-pointer hover:bg-white hover:text-editorial-charcoal transition-colors duration-300 shadow-sm"
+                    disabled={bookingLoading}
+                    className="w-full text-center rounded-full bg-editorial-orange py-3 font-sans text-xs font-bold uppercase tracking-wider text-white cursor-pointer hover:bg-white hover:text-editorial-charcoal transition-colors duration-300 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Confirm Diagnostic Slot
+                    {bookingLoading ? 'Securing Slot...' : 'Confirm Diagnostic Slot'}
                   </button>
                 </form>
               ) : (
@@ -244,9 +303,10 @@ export default function ContactFooter() {
 
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-editorial-orange hover:bg-white text-white hover:text-editorial-charcoal px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider transition-colors duration-300 cursor-pointer shadow-sm"
+                  disabled={formLoading}
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-editorial-orange hover:bg-white text-white hover:text-editorial-charcoal px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider transition-colors duration-300 cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>Submit Strategic Request</span>
+                  <span>{formLoading ? 'Sending Request...' : 'Submit Strategic Request'}</span>
                   <Send className="h-3.5 w-3.5" />
                 </button>
               </form>
@@ -273,7 +333,7 @@ export default function ContactFooter() {
 
           <div className="flex items-center gap-6">
             <a 
-              href="mailto:hooria@emilyroseco-mock.com" 
+              href="mailto:khan.hooria1@gmail.com" 
               className="flex items-center gap-1.5 font-sans text-[10px] text-white/60 hover:text-editorial-orange uppercase tracking-wider"
             >
               <Mail className="h-3.5 w-3.5 text-editorial-orange" />

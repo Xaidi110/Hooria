@@ -36,6 +36,21 @@ app.post('/api/audit', async (req, res) => {
     return res.status(400).json({ error: 'Missing required parameters: businessName, industry, challenge' });
   }
 
+  // Log simulated email notification for the AI Audit request
+  console.log(`
+==================================================
+📧 EMAIL DISPATCH SIMULATION (AI Audit Requested)
+To: khan.hooria1@gmail.com
+CC: aun.nysofts@gmail.com
+Subject: New AI Brand & Growth Audit Generated - ${businessName}
+Details:
+  Business Name: ${businessName}
+  Industry: ${industry}
+  Challenge: ${challenge}
+  Target Audience: ${targetAudience || 'Not specified'}
+==================================================
+  `);
+
   // Gracefully handle missing API key to prevent crashes
   if (!process.env.GEMINI_API_KEY) {
     // If key is missing, return a beautiful, realistic, fallback audit mock that represents Hooria's actual methodology!
@@ -136,6 +151,61 @@ Ensure your tone is engaging, highly competent, slightly cheeky (playful but hig
     console.error('Error in Gemini API growth audit:', error);
     return res.status(500).json({ error: 'Failed to generate audit. Let\'s try again.' });
   }
+});
+
+// API: Contact Inquiry Submission
+app.post('/api/contact', (req, res) => {
+  const { name, email, company, serviceNeed, message } = req.body;
+
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'Missing required parameters: name, email, message' });
+  }
+
+  // Clear simulated email notification for the contact form
+  console.log(`
+==================================================
+📧 EMAIL DISPATCH SIMULATION (Strategic Request)
+To: khan.hooria1@gmail.com
+CC: aun.nysofts@gmail.com
+From: ${email} (${name})
+Subject: New Strategic Growth Request - ${serviceNeed}
+Body:
+  Name: ${name}
+  Email: ${email}
+  Company: ${company || 'Not specified'}
+  Strategic Need: ${serviceNeed}
+  Message: ${message}
+==================================================
+  `);
+
+  return res.json({ success: true, message: 'Strategic request received and dispatched successfully.' });
+});
+
+// API: Book a Call Submission
+app.post('/api/book', (req, res) => {
+  const { name, email, day, time } = req.body;
+
+  if (!name || !email || !day || !time) {
+    return res.status(400).json({ error: 'Missing required parameters: name, email, day, time' });
+  }
+
+  // Clear simulated email notification for the booking scheduler
+  console.log(`
+==================================================
+📧 EMAIL DISPATCH SIMULATION (1:1 Strategy Booking)
+To: khan.hooria1@gmail.com
+CC: aun.nysofts@gmail.com
+From: ${email} (${name})
+Subject: Confirmed Strategy Call: ${day} @ ${time}
+Body:
+  Attendee Name: ${name}
+  Attendee Email: ${email}
+  Date: ${day}
+  Time: ${time} (CEST)
+==================================================
+  `);
+
+  return res.json({ success: true, message: 'Strategy call booked and dispatched successfully.' });
 });
 
 // Serve assets and handle Vite in Development, static serving in Production

@@ -7,12 +7,27 @@ export default function CaseStudiesSection() {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [expandedId, setExpandedId] = useState<string | null>(caseStudies[0].id); // Default expand the first one for high visual engagement!
 
+  const matchesFilter = (study: CaseStudy, filter: string) => {
+    if (filter === 'all') return true;
+    const lowerId = study.id.toLowerCase();
+    const lowerIndustry = study.industry.toLowerCase();
+    
+    if (filter === 'saas') {
+      return lowerId.includes('saas') || lowerIndustry.includes('saas');
+    }
+    if (filter === 'ecommerce') {
+      return lowerId.includes('ecommerce') || lowerIndustry.includes('direct-to-consumer') || lowerIndustry.includes('wellness') || lowerIndustry.includes('ecommerce');
+    }
+    if (filter === 'fintech') {
+      return lowerId.includes('fintech') || lowerIndustry.includes('asset') || lowerIndustry.includes('fintech');
+    }
+    return lowerIndustry.includes(filter.toLowerCase()) || lowerId.includes(filter.toLowerCase());
+  };
+
   const handleFilterClick = (filter: string) => {
     setActiveFilter(filter);
     // Auto-expand the first filtered case study
-    const filtered = filter === 'all' 
-      ? caseStudies 
-      : caseStudies.filter(c => c.industry.toLowerCase().includes(filter.toLowerCase()));
+    const filtered = caseStudies.filter(c => matchesFilter(c, filter));
     if (filtered.length > 0) {
       setExpandedId(filtered[0].id);
     } else {
@@ -20,9 +35,7 @@ export default function CaseStudiesSection() {
     }
   };
 
-  const filteredStudies = activeFilter === 'all' 
-    ? caseStudies 
-    : caseStudies.filter(c => c.industry.toLowerCase().includes(activeFilter.toLowerCase()));
+  const filteredStudies = caseStudies.filter(c => matchesFilter(c, activeFilter));
 
   const toggleExpand = (id: string) => {
     if (expandedId === id) {

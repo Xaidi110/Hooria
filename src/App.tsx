@@ -89,10 +89,10 @@ export default function App() {
       <CaseStudiesSection />
 
       {/* Dedicated Centered Segment for the Gemini-Powered AI Growth Audit */}
-      <section id="audit-section-anchor" className="bg-white py-24 px-4 md:px-8 border-b border-editorial-charcoal/10 relative overflow-hidden">
+      <section id="audit-section-anchor" className="bg-white pt-24 pb-24 mt-0 px-4 md:px-8 border-b border-editorial-charcoal/10 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-10">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-editorial-charcoal/10 bg-editorial-cream px-5 py-2 font-sans text-[10px] font-bold uppercase tracking-widest text-editorial-charcoal shadow-sm">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-editorial-charcoal/10 bg-editorial-cream px-5 pt-2 pb-2 mt-10 font-sans text-[10px] font-bold uppercase tracking-widest text-editorial-charcoal shadow-sm">
             <Compass className="h-3.5 w-3.5 text-editorial-orange" />
             <span>Interactive Diagnostic Console</span>
           </div>
