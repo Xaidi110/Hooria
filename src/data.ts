@@ -75,7 +75,7 @@ export const caseStudies: CaseStudy[] = [
     }
   },
   {
-    id: 'ecommerce-disruptor',
+    id: 'ecommerce',
     clientName: 'NaturKind',
     industry: 'Direct-to-Consumer Wellness (Berlin)',
     title: 'Deploying a colorful brand pivot and high-conversion loops.',
@@ -103,7 +103,7 @@ export const caseStudies: CaseStudy[] = [
     }
   },
   {
-    id: 'fintech-pioneer',
+    id: 'fintech',
     clientName: 'VeloCapital',
     industry: 'Fractional Asset Management (Frankfurt)',
     title: 'Bridging institutional credibility with digital-first charisma.',
