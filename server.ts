@@ -597,6 +597,8 @@ app.post('/api/book', async (req, res) => {
   });
 });
 
+export { app };
+
 // Serve assets and handle Vite in Development, static serving in Production
 async function startServer() {
   if (process.env.NODE_ENV !== 'production') {
@@ -618,4 +620,6 @@ async function startServer() {
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
