@@ -10,16 +10,25 @@ dotenv.config();
 const app = express();
 const PORT = 3000;
 
-// Initialize Gemini SDK with custom user agent for tracking
-const geminiApiKey = process.env.GEMINI_API_KEY || '';
-const ai = new GoogleGenAI({
-  apiKey: geminiApiKey,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
-    },
-  },
-});
+// Lazy-initialize Gemini SDK with custom user agent for tracking
+let aiClient: GoogleGenAI | null = null;
+function getGoogleGenAI() {
+  if (!aiClient) {
+    const key = process.env.GEMINI_API_KEY;
+    if (!key) {
+      throw new Error('GEMINI_API_KEY environment variable is required');
+    }
+    aiClient = new GoogleGenAI({
+      apiKey: key,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
+  }
+  return aiClient;
+}
 
 app.use(express.json());
 
@@ -80,7 +89,7 @@ ${text}
 
 // API: Check server health
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', keyConfigured: !!geminiApiKey });
+  res.json({ status: 'ok', keyConfigured: !!process.env.GEMINI_API_KEY });
 });
 
 // API: Gemini-Powered Custom Brand & Growth Audit
@@ -163,6 +172,7 @@ app.post('/api/audit', async (req, res) => {
   }
 
   try {
+    const ai = getGoogleGenAI();
     const prompt = `Analyze the following business profile for a custom digital growth and brand positioning audit:
 - Business Name: ${businessName}
 - Industry/Niche: ${industry}
