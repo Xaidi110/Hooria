@@ -30,6 +30,8 @@ export default function ContactFooter() {
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
   const [bookingLoading, setBookingLoading] = useState(false);
+  const [formSmtpConfigured, setFormSmtpConfigured] = useState<boolean | null>(null);
+  const [bookingSmtpConfigured, setBookingSmtpConfigured] = useState<boolean | null>(null);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -49,6 +51,8 @@ export default function ContactFooter() {
         body: JSON.stringify(formData)
       });
       if (res.ok) {
+        const data = await res.json();
+        setFormSmtpConfigured(data.smtpConfigured);
         setFormSubmitted(true);
       }
     } catch (err) {
@@ -69,6 +73,8 @@ export default function ContactFooter() {
         body: JSON.stringify(booking)
       });
       if (res.ok) {
+        const data = await res.json();
+        setBookingSmtpConfigured(data.smtpConfigured);
         setBookingSubmitted(true);
       }
     } catch (err) {
@@ -197,12 +203,21 @@ export default function ContactFooter() {
                   </button>
                 </form>
               ) : (
-                <div className="py-6 text-center animate-fade-in">
-                  <CheckCircle className="h-10 w-10 text-editorial-orange mx-auto mb-3" />
+                <div className="py-6 text-center animate-fade-in bg-white/[0.01] border border-white/5 rounded-2xl p-4">
+                  <CheckCircle className="h-10 w-10 text-emerald-500 mx-auto mb-3" />
                   <span className="font-display text-sm font-bold text-white block">Strategy Session Booked!</span>
-                  <p className="font-sans text-xs text-white/60 mt-1 max-w-xs mx-auto">
-                    Confirmed for **{booking.day}** at **{booking.time}**. A calendar invitation has been sent to your email.
+                  <p className="font-sans text-xs text-white/60 mt-2 max-w-xs mx-auto">
+                    Confirmed for <strong className="text-white">{booking.day}</strong> at <strong className="text-white">{booking.time}</strong>.
                   </p>
+                  {bookingSmtpConfigured === true ? (
+                    <div className="mt-3 p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] text-emerald-400 font-sans leading-relaxed">
+                      ✨ Successfully dispatched real email to <strong>khan.hooria1@gmail.com</strong> (CC: <strong>aun.nysofts@gmail.com</strong>).
+                    </div>
+                  ) : (
+                    <div className="mt-3 p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-300 font-sans text-left leading-normal">
+                      💡 <strong>Note for Testing:</strong> Since SMTP is not yet configured in AI Studio Secrets, the email was simulated & logged in the server console. Setup <code>SMTP_HOST</code> and <code>SMTP_PASS</code> for live delivery!
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -311,12 +326,22 @@ export default function ContactFooter() {
                 </button>
               </form>
             ) : (
-              <div className="py-12 text-center animate-fade-in">
-                <CheckCircle className="h-12 w-12 text-editorial-orange mx-auto mb-4" />
+              <div className="py-12 text-center animate-fade-in bg-white/[0.01] border border-white/5 rounded-2xl p-6">
+                <CheckCircle className="h-12 w-12 text-emerald-500 mx-auto mb-4" />
                 <span className="font-display text-xl font-bold text-white block">Inquiry Submitted!</span>
                 <p className="font-sans text-sm text-white/60 mt-2 max-w-md mx-auto">
-                  Vielen Dank, {formData.name}. Hooria will analyze your business profile and respond in 24 hours with custom strategic recommendations.
+                  Vielen Dank, <strong>{formData.name}</strong>. Hooria will analyze your business profile and respond in 24 hours with custom strategic recommendations.
                 </p>
+                {formSmtpConfigured === true ? (
+                  <div className="mt-5 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 font-sans leading-relaxed max-w-md mx-auto">
+                    ✨ Successfully dispatched real email to <strong>khan.hooria1@gmail.com</strong> (CC: <strong>aun.nysofts@gmail.com</strong>).
+                  </div>
+                ) : (
+                  <div className="mt-5 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-300 font-sans text-left leading-relaxed max-w-md mx-auto">
+                    💡 <strong>Test Dispatch Status:</strong> Your strategic request has been processed! Since no SMTP configuration exists in AI Studio Secrets, real-time transmission was simulated. You can view the fully assembled email log in the terminal console. <br />
+                    To test real delivery, configure <code>SMTP_HOST</code>, <code>SMTP_USER</code>, and <code>SMTP_PASS</code> in the Secrets tab.
+                  </div>
+                )}
               </div>
             )}
           </div>
